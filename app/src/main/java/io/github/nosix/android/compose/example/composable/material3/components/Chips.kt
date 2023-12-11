@@ -2,11 +2,8 @@ package io.github.nosix.android.compose.example.composable.material3.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ElevatedAssistChip
@@ -14,7 +11,6 @@ import androidx.compose.material3.ElevatedFilterChip
 import androidx.compose.material3.ElevatedSuggestionChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
@@ -24,8 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
+import io.github.nosix.android.compose.example.utils.PrimaryIcon
+import io.github.nosix.android.compose.example.utils.SecondaryIcon
+import io.github.nosix.android.compose.example.utils.TertiaryIcon
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 240)
 @Composable
 fun ChipDemo() {
     MyTheme {
@@ -33,49 +32,44 @@ fun ChipDemo() {
             AssistChip(
                 onClick = {},
                 label = { Text("AssistChip") },
-                enabled = true,
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = false,
+                leadingIcon = { PrimaryIcon() },
+                trailingIcon = { SecondaryIcon() },
                 shape = AssistChipDefaults.shape,
                 colors = AssistChipDefaults.assistChipColors(),
                 elevation = AssistChipDefaults.assistChipElevation(),
                 border = AssistChipDefaults.assistChipBorder(),
                 interactionSource = remember { MutableInteractionSource() }
             )
+            AssistChip(
+                onClick = {},
+                label = { Text("AssistChip") },
+                leadingIcon = { PrimaryIcon() },
+                trailingIcon = { SecondaryIcon() },
+            )
             ElevatedAssistChip(
                 onClick = {},
                 label = { Text("ElevatedAssistChip") },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
+                leadingIcon = { PrimaryIcon() },
+                trailingIcon = { SecondaryIcon() },
             )
             SuggestionChip(
                 onClick = {},
                 label = { Text("SuggestionChip") },
-                icon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                }
+                icon = { PrimaryIcon() }
             )
             ElevatedSuggestionChip(
                 onClick = {},
                 label = { Text("ElevatedSuggestionChip") },
-                icon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                }
+                icon = { PrimaryIcon() }
             )
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 240)
 @Composable
 fun ExperimentalChipDemo() {
     MyTheme {
@@ -84,37 +78,23 @@ fun ExperimentalChipDemo() {
                 selected = true,
                 onClick = {},
                 label = { Text("FilterChip") },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
+                leadingIcon = { PrimaryIcon() },
+                trailingIcon = { SecondaryIcon() },
             )
             ElevatedFilterChip(
                 selected = true,
                 onClick = {},
                 label = { Text("ElevatedFilterChip") },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
+                leadingIcon = { PrimaryIcon() },
+                trailingIcon = { SecondaryIcon() },
             )
             InputChip(
                 selected = true,
                 onClick = {},
                 label = { Text("InputChip") },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                },
-                avatar = {
-                    Icon(imageVector = Icons.Default.AddCircle, contentDescription = null)
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
+                leadingIcon = { PrimaryIcon() },
+                avatar = { TertiaryIcon() },
+                trailingIcon = { SecondaryIcon() },
             )
         }
     }

@@ -2,16 +2,15 @@ package io.github.nosix.android.compose.example.composable.material3.components
 
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -26,51 +25,54 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
+import io.github.nosix.android.compose.example.utils.PrimaryIcon
+import io.github.nosix.android.compose.example.utils.SecondaryIcon
 import io.github.nosix.android.compose.example.utils.animateDpValue
+import io.github.nosix.android.compose.example.utils.toDpOffset
+import io.github.nosix.android.compose.example.utils.toPaddingValues
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 320, heightDp = 160)
 @Composable
 fun DropdownMenuDemo() {
     val animateOffset = false
-    MyTheme {
-        val infiniteTransition = rememberInfiniteTransition(label = "")
-        val dpState by infiniteTransition.animateDpValue()
+    val animateContentPadding = true
 
-        var expanded by remember { mutableStateOf(false) }
-        IconButton(
-            imageVector = Icons.Default.KeyboardArrowDown,
-            onClick = {
-                expanded = true
-            }
-        )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            offset = if (animateOffset) DpOffset(dpState, dpState) else DpOffset(0.dp, 0.dp),
-            properties = PopupProperties(focusable = true),
-        ) {
-            DropdownMenuItem(
-                text = {
-                    Text("Item 1")
-                },
-                onClick = {},
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
-                },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-                },
-                enabled = true,
-                colors = MenuDefaults.itemColors(),
-                contentPadding = MenuDefaults.DropdownMenuItemContentPadding,
-                interactionSource = remember { MutableInteractionSource() }
+    MyTheme {
+        Box {
+
+            val infiniteTransition = rememberInfiniteTransition(label = "")
+            val dpValue by infiniteTransition.animateDpValue()
+
+            var expanded by remember { mutableStateOf(true) }
+            IconButton(
+                imageVector = Icons.Default.KeyboardArrowDown,
+                onClick = {
+                    expanded = true
+                }
             )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                offset = if (animateOffset) dpValue.toDpOffset() else DpOffset(0.dp, 0.dp),
+                properties = PopupProperties(),
+            ) {
+                DropdownMenuItem(
+                    text = { Text("Text") },
+                    onClick = {},
+                    leadingIcon = { PrimaryIcon() },
+                    trailingIcon = { SecondaryIcon() },
+                    enabled = true,
+                    colors = MenuDefaults.itemColors(),
+                    contentPadding = if (animateContentPadding) dpValue.toPaddingValues() else MenuDefaults.DropdownMenuItemContentPadding,
+                    interactionSource = remember { MutableInteractionSource() }
+                )
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 320, heightDp = 160)
 @Composable
 fun ExposedDropdownMenuBoxDemo() {
     MyTheme {
@@ -79,13 +81,16 @@ fun ExposedDropdownMenuBoxDemo() {
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = {
+                if (it) value = ""
                 expanded = it
             }
         ) {
             TextField(
                 value = value,
                 onValueChange = {},
-                modifier = Modifier.menuAnchor(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor(),
                 readOnly = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -98,7 +103,7 @@ fun ExposedDropdownMenuBoxDemo() {
             ) {
                 DropdownMenuItem(
                     text = {
-                        Text("Item 1")
+                        Text("Text")
                     },
                     onClick = {
                         value = "Selected"

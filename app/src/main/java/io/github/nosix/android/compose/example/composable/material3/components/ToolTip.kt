@@ -1,5 +1,6 @@
 package io.github.nosix.android.compose.example.composable.material3.components
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PlainTooltipBox
@@ -18,53 +19,48 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun PlainTooltipBoxDemo() {
+fun TooltipBoxDemo() {
     MyTheme {
-        val scope = rememberCoroutineScope()
-        val tooltipState = remember { PlainTooltipState() }
-        PlainTooltipBox(
-            tooltip = {
-                Text(text = "Tooltip")
-            },
-            tooltipState = tooltipState,
-            shape = TooltipDefaults.plainTooltipContainerShape,
-            containerColor = TooltipDefaults.plainTooltipContainerColor,
-            contentColor = TooltipDefaults.plainTooltipContentColor,
-        ) {
-            Button(
-                onClick = {
-                    scope.launch { tooltipState.show() }
-                }
-            ) {
-                Text(text = "Show tooltip")
-            }
-        }
-    }
-}
+        Row {
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun RichTooltipBoxDemo() {
-    MyTheme {
-        val scope = rememberCoroutineScope()
-        val tooltipState = remember { RichTooltipState() }
-        RichTooltipBox(
-            text = {
-                Text(text = "Tooltip")
-            },
-            tooltipState = tooltipState,
-            title = { Text(text = "Title") },
-            action = { Text(text = "Action") },
-            shape = TooltipDefaults.richTooltipContainerShape,
-            colors = TooltipDefaults.richTooltipColors()
-        ) {
-            Button(
-                onClick = {
-                    scope.launch { tooltipState.show() }
-                }
+            val scope = rememberCoroutineScope()
+            val plainTooltipState = remember { PlainTooltipState() }
+            PlainTooltipBox(
+                tooltip = {
+                    Text(text = "Tooltip")
+                },
+                tooltipState = plainTooltipState,
+                shape = TooltipDefaults.plainTooltipContainerShape,
+                containerColor = TooltipDefaults.plainTooltipContainerColor,
+                contentColor = TooltipDefaults.plainTooltipContentColor,
             ) {
-                Text(text = "Show tooltip")
+                Button(
+                    onClick = {
+                        scope.launch { plainTooltipState.show() }
+                    }
+                ) {
+                    Text(text = "Show plain tooltip")
+                }
+            }
+
+            val richTooltipState = remember { RichTooltipState() }
+            RichTooltipBox(
+                text = {
+                    Text(text = "Tooltip")
+                },
+                tooltipState = richTooltipState,
+                title = { Text(text = "Title") },
+                action = { Text(text = "Action") },
+                shape = TooltipDefaults.richTooltipContainerShape,
+                colors = TooltipDefaults.richTooltipColors()
+            ) {
+                Button(
+                    onClick = {
+                        scope.launch { richTooltipState.show() }
+                    }
+                ) {
+                    Text(text = "Show rich tooltip")
+                }
             }
         }
     }

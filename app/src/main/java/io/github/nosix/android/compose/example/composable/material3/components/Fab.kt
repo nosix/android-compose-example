@@ -16,48 +16,53 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
+import io.github.nosix.android.compose.example.utils.PrimaryIcon
 
 @Preview(showBackground = true)
 @Composable
 fun FloatingActionButtonDemo() {
     MyTheme {
         Column {
+            Text("FloatingActionButton")
             FloatingActionButton(
                 onClick = {},
                 modifier = Modifier.padding(8.dp),
-                shape = FloatingActionButtonDefaults.extendedFabShape,
+                shape = FloatingActionButtonDefaults.shape,
                 containerColor = FloatingActionButtonDefaults.containerColor,
                 contentColor = contentColorFor(FloatingActionButtonDefaults.containerColor),
                 elevation = FloatingActionButtonDefaults.elevation(),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
-                Text("FloatingActionButton")
+                PrimaryIcon()
             }
 
+            Text("SmallFloatingActionButton")
             SmallFloatingActionButton(
                 onClick = {},
                 modifier = Modifier.padding(8.dp),
-                shape = FloatingActionButtonDefaults.extendedFabShape,
+                shape = FloatingActionButtonDefaults.smallShape,
                 containerColor = FloatingActionButtonDefaults.containerColor,
                 contentColor = contentColorFor(FloatingActionButtonDefaults.containerColor),
                 elevation = FloatingActionButtonDefaults.elevation(),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
-                Text("SmallFloatingActionButton")
+                PrimaryIcon()
             }
 
+            Text("LargeFloatingActionButton")
             LargeFloatingActionButton(
                 onClick = {},
                 modifier = Modifier.padding(8.dp),
-                shape = FloatingActionButtonDefaults.extendedFabShape,
+                shape = FloatingActionButtonDefaults.largeShape,
                 containerColor = FloatingActionButtonDefaults.containerColor,
                 contentColor = contentColorFor(FloatingActionButtonDefaults.containerColor),
                 elevation = FloatingActionButtonDefaults.elevation(),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
-                Text("LargeFloatingActionButton")
+                PrimaryIcon()
             }
 
+            Text("ExtendedFloatingActionButton")
             ExtendedFloatingActionButton(
                 onClick = {},
                 modifier = Modifier.padding(8.dp),
@@ -67,7 +72,7 @@ fun FloatingActionButtonDemo() {
                 elevation = FloatingActionButtonDefaults.elevation(),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
-                Text("ExtendedFloatingActionButton")
+                PrimaryIcon()
             }
         }
     }

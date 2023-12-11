@@ -13,7 +13,7 @@ import androidx.compose.ui.window.DialogProperties
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
 @Composable
 fun AlertDialogDemo() {
     MyTheme {
@@ -24,7 +24,8 @@ fun AlertDialogDemo() {
                     showState = false
                 },
                 properties = DialogProperties(
-                    dismissOnBackPress = true
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true
                 )
             ) {
                 Text("AlertDialog")

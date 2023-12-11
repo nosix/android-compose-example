@@ -142,12 +142,19 @@ fun TextDemo() {
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Right
                     )
-                    Text(
-                        text = "textAlign = TextAlign.Justify",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Justify
-                    )
                 }
+            }
+            item {
+                Text(
+                    text = "textAlign = TextAlign.Start サンプル さんぷる Sample",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Start
+                )
+                Text(
+                    text = "textAlign = TextAlign.Justify サンプル さんぷる Sample",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Justify
+                )
             }
             item {
                 Text(text = "lineHeight\nlineHeight = 8.sp", lineHeight = 8.sp)

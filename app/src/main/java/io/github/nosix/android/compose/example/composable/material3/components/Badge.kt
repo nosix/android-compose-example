@@ -1,28 +1,44 @@
 package io.github.nosix.android.compose.example.composable.material3.components
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgeDefaults
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
+import io.github.nosix.android.compose.example.utils.PrimaryIcon
+import io.github.nosix.android.compose.example.utils.animateColorValue
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 100, heightDp = 100)
 @Composable
-fun BadgePreview() {
-    MyTheme {
+fun BadgeDemo() {
+    val animateContainerColor = false
+    val animateContentColor = false
+
+    Display {
+        val infiniteTransition = rememberInfiniteTransition(label = "")
+        val containerColor by infiniteTransition.animateColorValue(
+            enabled = animateContainerColor,
+            initialValue = BadgeDefaults.containerColor
+        )
+        val contentColor by infiniteTransition.animateColorValue(
+            enabled = animateContentColor,
+            initialValue = contentColorFor(BadgeDefaults.containerColor)
+        )
+
         Badge(
-            containerColor = MaterialTheme.colorScheme.error,
-            contentColor = MaterialTheme.colorScheme.onError
+            containerColor = containerColor,
+            contentColor = contentColor
         ) {
             Text(text = "10")
         }
@@ -30,19 +46,30 @@ fun BadgePreview() {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 100, heightDp = 100)
 @Composable
 fun BadgeBoxDemo() {
-    MyTheme {
+    Display {
         BadgedBox(
             badge = {
                 Badge {
                     Text(text = "10")
                 }
             },
-            modifier = Modifier.padding(32.dp) // TODO 固定値をやめる
         ) {
-            Icon(imageVector = Icons.Default.Email, contentDescription = null)
+            PrimaryIcon()
+        }
+    }
+}
+
+@Composable
+fun Display(content: @Composable () -> Unit) {
+    MyTheme {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
         }
     }
 }

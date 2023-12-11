@@ -1,7 +1,7 @@
 package io.github.nosix.android.compose.example.composable.material3.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.TriStateCheckbox
@@ -18,7 +18,7 @@ import io.github.nosix.android.compose.example.ui.theme.MyTheme
 @Composable
 fun CheckboxDemo() {
     MyTheme {
-        Column {
+        Row {
             var checked by remember { mutableStateOf(false) }
             Checkbox(
                 checked = checked,

@@ -33,7 +33,7 @@ fun ListItemDemo() {
                 Text("Trailing")
             },
             colors = ListItemDefaults.colors(
-                MaterialTheme.colorScheme.primaryContainer
+                containerColor = MaterialTheme.colorScheme.primaryContainer
             ),
             tonalElevation = ListItemDefaults.Elevation,
             shadowElevation = ListItemDefaults.Elevation

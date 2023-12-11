@@ -2,13 +2,10 @@ package io.github.nosix.android.compose.example.composable.material3.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FilledTonalIconToggleButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.IconToggleButton
@@ -22,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
+import io.github.nosix.android.compose.example.utils.PrimaryIcon
 
 @Preview(showBackground = true)
 @Composable
@@ -35,22 +33,22 @@ fun IconButtonDemo() {
                 colors = IconButtonDefaults.iconButtonColors(),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+                PrimaryIcon()
             }
 
             Text("FilledIconButton")
             FilledIconButton(onClick = {}) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+                PrimaryIcon()
             }
 
             Text("FilledTonalIconButton")
             FilledTonalIconButton(onClick = {}) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+                PrimaryIcon()
             }
 
             Text("OutlinedIconButton")
             OutlinedIconButton(onClick = {}) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+                PrimaryIcon()
             }
 
             Text("IconToggleButton")
@@ -62,22 +60,31 @@ fun IconButtonDemo() {
                 colors = IconButtonDefaults.iconToggleButtonColors(),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+                PrimaryIcon()
             }
 
             Text("FilledIconToggleButton")
-            FilledIconToggleButton(checked = iconToggleChecked, onCheckedChange = {}) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+            FilledIconToggleButton(
+                checked = iconToggleChecked,
+                onCheckedChange = { iconToggleChecked = it }
+            ) {
+                PrimaryIcon()
             }
 
             Text("FilledTonalIconToggleButton")
-            FilledTonalIconToggleButton(checked = iconToggleChecked, onCheckedChange = {}) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+            FilledTonalIconToggleButton(
+                checked = iconToggleChecked,
+                onCheckedChange = { iconToggleChecked = it }
+            ) {
+                PrimaryIcon()
             }
 
             Text("OutlinedIconToggleButton")
-            OutlinedIconToggleButton(checked = iconToggleChecked, onCheckedChange = {}) {
-                Icon(imageVector = Icons.Default.Email, contentDescription = null)
+            OutlinedIconToggleButton(
+                checked = iconToggleChecked,
+                onCheckedChange = { iconToggleChecked = it }
+            ) {
+                PrimaryIcon()
             }
         }
     }

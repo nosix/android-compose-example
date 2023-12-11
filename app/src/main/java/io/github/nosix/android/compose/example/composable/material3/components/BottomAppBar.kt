@@ -1,22 +1,26 @@
 package io.github.nosix.android.compose.example.composable.material3.components
 
 import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import io.github.nosix.android.compose.example.ui.theme.MyTheme
+import io.github.nosix.android.compose.example.utils.PrimaryIcon
+import io.github.nosix.android.compose.example.utils.SecondaryIcon
+import io.github.nosix.android.compose.example.utils.TertiaryIcon
+import io.github.nosix.android.compose.example.utils.animateColorValue
 import io.github.nosix.android.compose.example.utils.animateDpValue
 import io.github.nosix.android.compose.example.utils.toPaddingValues
 import io.github.nosix.android.compose.example.utils.toWindowInsets
@@ -24,58 +28,75 @@ import io.github.nosix.android.compose.example.utils.toWindowInsets
 @Preview(showBackground = true)
 @Composable
 fun BottomAppBarDemo() {
-    val animateTonalElevation = false
-    val animateContentPadding = false
-    val animateWindowInsets = false
-
     MyTheme {
-        val dpValue by rememberInfiniteTransition(label = "").animateDpValue()
-
         BottomAppBar(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            tonalElevation = if (animateTonalElevation) dpValue else BottomAppBarDefaults.ContainerElevation,
-            contentPadding = if (animateContentPadding) dpValue.toPaddingValues() else BottomAppBarDefaults.ContentPadding,
-            windowInsets = if (animateWindowInsets) dpValue.toWindowInsets() else BottomAppBarDefaults.windowInsets
+            modifier = Modifier.padding(8.dp),
+            containerColor = BottomAppBarDefaults.containerColor,
+            contentColor = contentColorFor(BottomAppBarDefaults.containerColor),
+            tonalElevation = BottomAppBarDefaults.ContainerElevation,
+            contentPadding = BottomAppBarDefaults.ContentPadding,
+            windowInsets = BottomAppBarDefaults.windowInsets
         ) {
-            BottomIconButton(imageVector = Icons.Default.Email)
-            BottomIconButton(imageVector = Icons.Default.AccountCircle)
-            BottomIconButton(imageVector = Icons.Default.Build)
+            IconButton(index = 1)
+            IconButton(index = 2)
+            IconButton(index = 3)
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun BottomAppBarDemo2() {
+fun BottomAppBarWithFabDemo() {
+    val animateContainerColor = false
+    val animateContentColor = false
+    val animateTonalElevation = false
+    val animateContentPadding = false
+    val animateWindowInsets = false
+
     MyTheme {
+        val infiniteTransition = rememberInfiniteTransition(label = "")
+        val dpValue by infiniteTransition.animateDpValue()
+        val containerColor by infiniteTransition.animateColorValue(
+            enabled = animateContainerColor,
+            initialValue = BottomAppBarDefaults.containerColor
+        )
+        val contentColor by infiniteTransition.animateColorValue(
+            enabled = animateContentColor,
+            initialValue = contentColorFor(BottomAppBarDefaults.containerColor)
+        )
+
         BottomAppBar(
             actions = {
-                BottomIconButton(imageVector = Icons.Default.Email)
-                BottomIconButton(imageVector = Icons.Default.AccountCircle)
-                BottomIconButton(imageVector = Icons.Default.Build)
+                IconButton(index = 1)
+                IconButton(index = 2)
+                IconButton(index = 3)
             },
+            modifier = Modifier.padding(8.dp),
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = {},
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                    contentColor = contentColorFor(FloatingActionButtonDefaults.containerColor)
                 ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = null)
                 }
             },
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            tonalElevation = BottomAppBarDefaults.ContainerElevation,
-            contentPadding = BottomAppBarDefaults.ContentPadding,
-            windowInsets = BottomAppBarDefaults.windowInsets
+            containerColor = containerColor,
+            contentColor = contentColor,
+            tonalElevation = if (animateTonalElevation) dpValue else BottomAppBarDefaults.ContainerElevation,
+            contentPadding = if (animateContentPadding) dpValue.toPaddingValues() else BottomAppBarDefaults.ContentPadding,
+            windowInsets = if (animateWindowInsets) dpValue.toWindowInsets() else BottomAppBarDefaults.windowInsets
         )
     }
 }
 
 @Composable
-fun BottomIconButton(imageVector: ImageVector) {
+fun IconButton(index: Int) {
     IconButton(onClick = {}) {
-        Icon(imageVector = imageVector, contentDescription = null)
+        when (index) {
+            1 -> PrimaryIcon()
+            2 -> SecondaryIcon()
+            3 -> TertiaryIcon()
+        }
     }
 }

@@ -7,7 +7,12 @@ import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -19,14 +24,20 @@ import io.github.nosix.android.compose.example.ui.theme.MyTheme
 fun SliderDemo() {
     MyTheme {
         Column {
+            var value by remember { mutableFloatStateOf(5f) }
+            var thumbColor by remember { mutableStateOf(Color.Black) }
             Slider(
-                value = 0.5f,
-                onValueChange = {},
+                value = value,
+                onValueChange = { value = it },
                 enabled = true,
-                valueRange = 0f..1f,
-                steps = 0,
-                onValueChangeFinished = {},
-                colors = SliderDefaults.colors(),
+                valueRange = 0f..10f,
+                steps = 3,
+                onValueChangeFinished = {
+                    thumbColor = if (thumbColor == Color.Black) Color.Gray else Color.Black
+                },
+                colors = SliderDefaults.colors(
+                    thumbColor = thumbColor
+                ),
                 interactionSource = remember { MutableInteractionSource() }
             )
 
@@ -66,14 +77,20 @@ fun SliderDemo() {
 fun RangeSliderDemo() {
     MyTheme {
         Column {
+            var value by remember { mutableStateOf(0.2f..0.8f) }
+            var thumbColor by remember { mutableStateOf(Color.Black) }
             RangeSlider(
-                value = 0.2f..0.8f,
-                onValueChange = {},
+                value = value,
+                onValueChange = { value = it },
                 enabled = true,
                 valueRange = 0f..1f,
-                steps = 0,
-                onValueChangeFinished = {},
-                colors = SliderDefaults.colors()
+                steps = 4,
+                onValueChangeFinished = {
+                    thumbColor = if (thumbColor == Color.Black) Color.Gray else Color.Black
+                },
+                colors = SliderDefaults.colors(
+                    thumbColor = thumbColor
+                )
             )
 
             val interactionSource = remember { MutableInteractionSource() }
